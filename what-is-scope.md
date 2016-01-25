@@ -76,4 +76,108 @@ Scope: It's a built in object. Here you go.
 Engine: Looking up .log(). Oh it's a function.  
 Engine: I think I remember but double checking RHS reference to 'a'.  
 Scope: You are right. 'a' hasn't changed. Here you go.  
-Engine: Cool. Executing console.log() by passing value of 'a' which is '2'  
+Engine: Cool. Executing console.log() by passing value of 'a' which is '2'
+
+## Nested Scope  
+If a variable cannot be found in the immediate scope, Engine consults the next outer containing scope, continuing until is found or until the outermost/global scope has been reached. You either find what you’re looking for, or you don’t. But you
+have to stop regardless.
+
+``` js
+function foo(a) {
+  /*
+  Learning through conversation again:
+  Engine: Hey scope of 'foo', do you have a RHS reference for 'b'.
+  Scope(foo): No, go fish outside.
+  Engine: Hey outer scope of foo (Global scope in this case), do you have RHS reference to 'b'?
+  Scope(Global): Yes. Here you go '3'
+  */
+  console.log( a + b);
+
+}
+
+var b = 3;
+
+foo( 2 ); // Output: 5
+```
+
+## Errors
+
+1. RHS error: Couldn't find RHS reference for 'b' in any scope
+
+  ```js
+  function foo(a) {
+    console.log( a + b); //Couldn't find RHS reference for 'b' in foo scope nor global scope
+    b = a;
+  }
+
+  foo( 2 ); // Reference Error
+  ```
+
+  <b>Solution:</b>
+  ```js
+  function foo(a) {
+    console.log( a + b);
+  }
+  var b = 2;
+  foo( 2 ); // Output: 4
+  ```
+
+2. LHS error: Couldn't find LHS reference for 'b' in global space due to strict mode turned ON
+
+  ```js
+  "use strict"
+  function foo(a) {
+    /*
+    While trying to perform LHS b = a, we must first find the variable container 'b'.
+    Since it cannot find it inside foo scope, it goes out to global scope.
+    If program is NOT running in strict mode, the global scope will create a new variable
+    of 'b' in the global scope, and hand it back to Engine.
+
+    But strict mode disallows the automatic/implicit global variable creation.
+    Hence it throws a Reference Error similar to RHS error in example 1
+
+    */
+    b = a;
+    console.log( a + b);
+
+  }
+
+  foo( 2 ); // Reference Error
+  ```
+  <b>Solution:</b>
+  ```js
+  "use strict"
+  function foo(a) {
+    var b = a;
+    console.log( a + b);
+
+  }
+
+  foo( 2 ); // Output: 4
+  ```
+
+3. Type Error:  Trying to execute as function a non-function value, or reference a property on a null or undefined value results in Type Error
+
+  ```js
+  // Example: Executing as function a non-function value
+  function foo(a) {
+    a();
+  }
+
+  foo( 2 ); // TypeError
+  ```
+
+  ```js
+  // Example: Reference a property on an undefined value
+  function displayLength(a) {
+    console.log( a.length );
+  }
+
+  var arr1 = ['a', 2, true];
+  displayLength( arr1 ); // Output: 3
+
+  var arr2;
+  displayLength( arr2 ); // TypeError
+  ```
+
+>ReferenceError is scope resolution-failure related, whereas TypeError implies that scope resolution was successful, but that there was an illegal/impossible action attempted against the result.
