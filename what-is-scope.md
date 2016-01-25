@@ -194,11 +194,13 @@ var c = foo( 2 ); // Ln 5
 ```
 #### Solution
 LHS:
+
 1. c = ..  Refer Ln 5
 2. b = ..  Refer Ln 2
 3. a = 2 (implicit parameter assignment). Refer Ln 1
 
 RHS:
+
 1. foo(..) Refer Ln 5
 2. a;      Refer Ln 2
 3. a       Refer Ln 3
