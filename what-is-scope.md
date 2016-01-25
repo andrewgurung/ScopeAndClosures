@@ -21,15 +21,18 @@ Distinct actions:
 2. Compiler then produces code 'a = 2' assignment for Engine to handle. When executing, Engine looks up the variable in Scope(including nested scope) and assigns to it, if found (else throw an error)
 
 ### Compiler Speak
-When executing the above code sample, Engine looks up for the variable 'a' in Scope.
+When executing the above code sample, Engine looks up for the variable 'a' in Scope.  
 There are two types of look-up:
+
 1. LHS (lefthand side of an assignment)
   * Who’s the target of the assignment?
   * When a variable appears on the lefthand side of an assignment operation
   * Tries to find the variable container itself, so that it can assign
 
   ```js
-  /* We don’t actually care what the current value is, we simply want to find the variable as a target for the = 2 assignment operation. */
+  /* 
+  We don’t actually care what the current value is, 
+  we simply want to find the variable as a target for the = 2 assignment operation. */
   a = 2
   ```
 2. RHS
@@ -39,7 +42,10 @@ There are two types of look-up:
   * Can be thought as 'retrieve his/her value'
 
   ```js
-  /* Nothing is being assigned to 'a' here. Instead, we’re looking up to retrieve the value of 'a', so that the value can be passed to console.log(..) */
+  /* 
+  Nothing is being assigned to 'a' here. 
+  Instead, we’re looking up to retrieve the value of 'a', 
+  so that the value can be passed to console.log(..) */
   console.log(a);
   ```
 
