@@ -102,7 +102,7 @@ foo( 2 ); // Output: 5
 
 ## Errors
 
-1. RHS error: Couldn't find RHS reference for 'b' in any scope
+1. Reference Error (RHS): Couldn't find RHS reference for 'b' in any scope
 
   ```js
   function foo(a) {
@@ -122,7 +122,7 @@ foo( 2 ); // Output: 5
   foo( 2 ); // Output: 4
   ```
 
-2. LHS error: Couldn't find LHS reference for 'b' in global space due to strict mode turned ON
+2. Reference Error (LHS): Couldn't find LHS reference for 'b' in global space due to strict mode turned ON
 
   ```js
   "use strict"
