@@ -181,3 +181,25 @@ foo( 2 ); // Output: 5
   ```
 
 >ReferenceError is scope resolution-failure related, whereas TypeError implies that scope resolution was successful, but that there was an illegal/impossible action attempted against the result.
+
+## Quiz
+Find LHS and RHS in the following code snippet
+
+```js
+function foo(a) { // Ln 1
+  var b = a;      // Ln 2
+  return a + b;   // Ln 3
+}                 // Ln 4
+var c = foo( 2 ); // Ln 5
+```
+#### Solution
+LHS:
+1. c = ..  Refer Ln 5
+2. b = ..  Refer Ln 2
+3. a = 2 (implicit parameter assignment). Refer Ln 1
+
+RHS:
+1. foo(..) Refer Ln 5
+2. a;      Refer Ln 2
+3. a       Refer Ln 3
+4. b       Refer Ln 3
