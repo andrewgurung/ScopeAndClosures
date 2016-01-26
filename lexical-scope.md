@@ -133,15 +133,15 @@ Bad Practice: Cheating lexical scope leads to poorer performance.
   When we pass in obj1, the a = 2 assignment finds the property obj1.a and reassigns it the value of 2.
   However when we pass obj2, it does not have an LHS reference to 'a' property, no such property is created, and obj2.a remains undefined.
 
-  Odd effect: How does global variable get created with a value of 2?
+  Odd effect: How does global variable get created with a value of 2?  
   Reason: Neither scope of obj2, nor scope of foo(..) nor the global scope has an 'a' identifier.
           So when a = 2 is executed, it results in automatic global variable being created since we are not in strict mode (LHS reference rule)
 
-  Both eval(..) and with are restricted in Strict mode.
+  Both **eval(..)** and **with** are restricted in Strict mode.
 
 #### Performance
 The JavaScript engine has a number of performance optimization that statically analyze the code as it lexes, predetermine where all the variable and function declarations are, so that it takes less effor to resolve identifiers during execution.  
 
-But most of those optimizations would be pointless if eval(..) or with are present, so it simply doesn't perform the optimizations at all.  
+But most of those optimizations would be pointless if **eval(..)** or **with** are present, so it simply doesn't perform the optimizations at all.  
 
 In short, *Don’t use them*.
