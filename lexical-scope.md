@@ -84,3 +84,64 @@ Bad Practice: Cheating lexical scope leads to poorer performance.
   ####Note:
   * setTimeout() and setInterval() functions are similar to eval(). But both of them are deprecated. Don't use it.
   * new Function() constructor is slightly safer than eval() but it should still be avoided.
+
+#### with (Deprecated)
+* with keyword is a shorthand for making multiple property references against an object
+* with keyword creates a whole new lexical scope by treating an object reference as a scope and that object’s properties as scoped identifiers.
+
+  For Example
+  ```js
+  var obj = {
+    a: 1,
+    b: 2,
+    c: 3
+  };
+  // Tedious way to repeat 'obj' object reference
+  obj.a = 100;
+  obj.b = 200;
+  obj.c = 300;
+
+  // easier shorthand using with
+  with(obj) {
+    a = 500;
+    b = 600;
+    c = 700;
+  }
+  ```
+
+  Let's look deeper with another example:
+  ```js
+  function foo(obj) {
+    with(obj) {
+      a = 2;
+    }
+  }
+
+  var obj1 = { a: 3 };
+  var obj2 = { b: 3 };
+
+  foo(obj1);
+  console.log(obj1.a); // 2
+
+  foo(obj2);
+  console.log(obj2.a); // undefined
+  console.log(obj2.c); // undefined too
+
+  console.log(a); // 2 (Global leak)
+  ```
+
+  When we pass in obj1, the a = 2 assignment finds the property obj1.a and reassigns it the value of 2.
+  However when we pass obj2, it does not have an LHS reference to 'a' property, no such property is created, and obj2.a remains undefined.
+
+  Odd effect: How does global variable get created with a value of 2?
+  Reason: Neither scope of obj2, nor scope of foo(..) nor the global scope has an 'a' identifier.
+          So when a = 2 is executed, it results in automatic global variable being created since we are not in strict mode (LHS reference rule)
+
+  Both eval(..) and with are restricted in Strict mode.
+
+#### Performance
+The JavaScript engine has a number of performance optimization that statically analyze the code as it lexes, predetermine where all the variable and function declarations are, so that it takes less effor to resolve identifiers during execution.  
+
+But most of those optimizations would be pointless if eval(..) or with are present, so it simply doesn't perform the optimizations at all.  
+
+In short, *Don’t use them*.
