@@ -1,6 +1,7 @@
 ## Lexical Scope
 
 There are two predominant models for scoping.  
+
 1. Lexical Scope (Most programming languages including JavaScript)
 2. Dynamic Scope (Some programming languages such as Bash scripting)
 
