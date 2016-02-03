@@ -55,3 +55,37 @@ var MyBestJSLibrary = {
   }
 };
 ```
+
+## Function as Scope
+Function can enclose any variable or function declaration by wrapping it inside its inner function scope.  
+But can lead to global namespace pollution and explicitly call the named function (Eg. foo()) to execute it.
+
+```js
+var a = 2;
+function foo() {
+  var a = 3;
+  console.log(a);
+}
+foo(); //3
+console.log(a); //2
+```
+
+**Better alternative:**
+
+1. No function name (or rather doesn't pollute global namespace)
+2. Function will be automatically executed
+
+```js
+var a = 2;
+(function foo() {
+  // foo identifier is only accessible inside of foo() {..} function
+  // Hence foo doesn't pollute global namespace
+  var a = 3;
+  console.log(a);
+})(); //3
+console.log(a); //2
+```
+
+(function foo() {..}) is a function expression which is followed by parenthesis () to execute it.
+
+> If function is the first thing of a statement, then it's function declaration. Else it's function expression.
