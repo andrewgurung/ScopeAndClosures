@@ -89,3 +89,23 @@ console.log(a); //2
 (function foo() {..}) is a function expression which is followed by parenthesis () to execute it.
 
 > If function is the first thing of a statement, then it's function declaration. Else it's function expression.
+
+### Anonymous Vs Named Function
+
+```js
+setTimeout( function(){
+  console.log("I waited 5 second!");
+}, 5000 );
+```
+
+This is called an anonymous function expression, because function(){..} has no name identifier on it.
+
+1. No useful name to display in stack trace.
+2. Hard to refer to. Must use deprecated arguments.callee to self-reference
+
+Best Practice: Always name your function expressions
+
+```js
+setTimeout( function timeoutHandler(){
+  console.log("I waited 5 second!");
+}, 5000 );
