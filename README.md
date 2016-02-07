@@ -21,3 +21,7 @@ Context
 -------
 You Don't Know JS: Scope & Closures <br>
 By Kyle Simpson
+
+Table of Contents
+-----------------
+1. What is scope?
