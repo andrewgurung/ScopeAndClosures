@@ -109,3 +109,25 @@ Best Practice: Always name your function expressions
 setTimeout( function timeoutHandler(){
   console.log("I waited 5 second!");
 }, 5000 );
+```
+
+
+### Immediately Invoked Function Expression
+
+1. Function as an expression by wrapping with (). Eg (function foo(){..})
+2. Invoked immediately by (). Eg (function foo(){..})()
+3. Though IIFEs are anonymous, its suggested to name your IIFEs
+4. Variation of IIFE. (function foo(){..}()) Works same as #1. Simply a matter of stylistic choice
+
+```js
+var a = 2;
+
+(function foo() {
+
+  var a = 3;
+  console.log( a ); //3
+
+})();
+
+console.log( a ); //2
+```
