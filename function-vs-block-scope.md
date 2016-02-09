@@ -135,8 +135,8 @@ console.log( a ); //2
 ## Block as Scopes
 On the surface, Javascript has no facility for block scope. Not until you dig further.
 1. with
-  - with keyword is a shorthand for making multiple property references against an object
-  - with keyword creates a whole new lexical scope by treating an object reference as a scope and that object’s properties as scoped identifiers
+  - `with` keyword is a shorthand for making multiple property references against an object
+  - `with` keyword creates a whole new lexical scope by treating an object reference as a scope and that object’s properties as scoped identifiers
   - The scope created from the object only exists for the lifetime of that with statement
 
 2. try/catch
@@ -150,5 +150,91 @@ On the surface, Javascript has no facility for block scope. Not until you dig fu
   }
   console.log( err ); //ReferenceError: err is not defined
   ```
+
 3. let
+  - ES6 introduces `let` keyword
+  - The scope of variables declared using let keyword is limited within the containing block (commanly a {..} pair)
+
+  ```js
+  var foo = true;
+
+  if (foo) {
+    let bar = foo * 2;
+    console.log( bar ); // 2
+  }
+
+  console.log( bar ); // ReferenceError: bar is not defined
+  ```
+  Best Practice: Use Explicit let block to avoid error while moving code during code refactor in future
+
+  ```js
+  var foo = true;
+
+  if (foo) {
+    { // <-- Explicit block
+      let bar = foo * 2;
+      console.log( bar ); // 2
+    }
+  }
+
+  console.log( bar ); // ReferenceError: bar is not defined
+  ```
+
+  Note: let will not hoist to the entire scope of the block
+  ```js
+  {
+    console.log(foo);
+    let foo = 'Hoist'; // ReferenceError: can't access lexical declaration `foo' before initialization
+  }
+  ```
+
+  ### Garbage Collection ###
+  Block-scoping makes it clear to the engine that it does not need to keep someReallyBigData around which tells garbage collection to reclaim memory
+  ``` js
+  function process(data) {
+      // do something interesting
+  }
+
+  // anything declared inside this block can go away after!
+  {
+      let someReallyBigData = { .. };
+
+      process( someReallyBigData );
+  }
+
+  var btn = document.getElementById( "my_button" );
+
+  btn.addEventListener( "click", function click(evt){
+      console.log("button clicked");
+  }, /*capturingPhase=*/false );
+  ```
+
+  ### `let` loop ###
+  Use case of `let`
+
+  ```js
+  for(let i = 0; i < 5; i++) {
+    console.log( i ); // 0 1 2 3 4
+  }
+
+  console.log( i ); // ReferenceError
+  ```
 4. const
+  - ES6 introduces `const` keyword
+  - `const` creates block-scoped variable whose value is fixed
+  - Trying to change the value of a `const` will result in error
+
+  ```js
+  var foo = true;
+
+  if (foo) {
+    var a = 2;
+    const b = 3;
+
+    a = 5; // Valid assignment
+    b = 5; // Error
+  }
+
+  console.log( a ); // 5
+  console.log( b ); // ReferenceError
+  ```
