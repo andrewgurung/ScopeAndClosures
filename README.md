@@ -24,5 +24,5 @@ By Kyle Simpson
 
 Table of Contents
 -----------------
-1. What is scope?
+1. What is scope?  
    [./what-is-scope.md]
