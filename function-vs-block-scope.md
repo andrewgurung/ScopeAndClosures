@@ -131,3 +131,24 @@ var a = 2;
 
 console.log( a ); //2
 ```
+
+## Block as Scopes
+On the surface, Javascript has no facility for block scope. Not until you dig further.
+1. with
+  - with keyword is a shorthand for making multiple property references against an object
+  - with keyword creates a whole new lexical scope by treating an object reference as a scope and that object’s properties as scoped identifiers
+  - The scope created from the object only exists for the lifetime of that with statement
+
+2. try/catch
+  - The variable declaration in the catch clause is block scoped
+  ```js
+  try {
+      undefined();
+  }
+  catch (err) {
+    console.log( err ); //Correctly displays the error message
+  }
+  console.log( err ); //ReferenceError: err is not defined
+  ```
+3. let
+4. const
