@@ -135,3 +135,19 @@ foo = function() {
 
 foo(); // baz
 ```
+
+## Warning: Avoid function declaration in blocks
+
+```js
+foo(); // FALSE!!
+
+var a = true;
+
+if (a) {
+  function foo() { console.log( "TRUE!!" ); }
+
+}
+else {
+  function foo() { console.log( "FALSE!!" ); }
+}
+```
