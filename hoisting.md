@@ -12,7 +12,7 @@ var a;
 console.log( a ); // 2
 ```
 
-1.b: How the engine treats it.
+1.b How the engine treats it.
 ```js
 var a;
 a = 2;
@@ -26,9 +26,23 @@ console.log( a ); // undefined
 var a = 2;
 ```
 
-1.b: How the engine treats it.
+2.b How the engine treats it.
 ```js
 var a;
 console.log( a ); // undefined
 a = 2;
+```
+
+* Function Expression aren't hoisted.
+
+```js
+// Only foo variable is hoisted, but the function isn't.
+// foo is undefined
+// Trying to execute foo() on an undefined variable will result in TypeError
+
+foo(); // not ReferenceError, but TypeError
+
+var foo = function bar() {
+  console.log( "Bar" );
+};
 ```
