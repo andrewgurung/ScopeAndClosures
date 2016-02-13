@@ -28,3 +28,25 @@ baz();
 - But `bar()` has lexical scope closure over that inner scope of function `foo()` which keeps that scope alive for `bar()` to reference at later
 - `bar()` having reference to that scope is called closure
 - Function is invoked outside of author-time lexical scope
+
+### Passing inner function to global function
+
+```js
+function foo() {
+  var a = "Closure";
+
+  function closed() {
+    console.log( a );
+  }
+
+  bar( closed );
+}
+
+function bar(fn) {
+  fn();
+}
+
+foo(); // Closure
+```
+
+### Assigning inner function to global variable
