@@ -112,7 +112,7 @@ Output: Instead of 1 2 3 4 5, it prints the following
 - Even if the timeout is set to 0 millisecond, the timeout function callbacks will run well after the completion of the loop
 - Though these 5 functions are defined separately in each iteration, they are closed over the same shared global scope
 
-### Using IIFE to solve use of function in loops
+### Using IIFE to allow usage of function in loops
 
 ```js
 for (var i=1; i<=5; i++) {
@@ -124,3 +124,23 @@ for (var i=1; i<=5; i++) {
 }
 ```
 - Use of IIFE created a new scope for each iteration
+
+### Using block scope `let` to allow usage of function in loops
+
+```js
+for (var i=1; i<=5; i++) {
+  let j = i;
+  setTimeout( function timer(){
+  console.log( j );
+}, 0 );
+}
+```
+
+Cleaner Solution
+```js
+for (let i=1; i<=5; i++) {
+  setTimeout( function timer(){
+  console.log( i );
+}, 0 );
+}
+```
