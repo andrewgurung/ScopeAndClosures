@@ -31,22 +31,40 @@ baz();
 
 ### Passing inner function to global function
 
-```js
-function foo() {
-  var a = "Closure";
+  ```js
+  function foo() {
+    var a = "Closure";
 
-  function closed() {
-    console.log( a );
+    function closed() {
+      console.log( a );
+    }
+
+    bar( closed );
   }
 
-  bar( closed );
-}
+  function bar(fn) {
+    fn();
+  }
 
-function bar(fn) {
-  fn();
-}
-
-foo(); // Closure
-```
+  foo(); // Closure
+  ```
 
 ### Assigning inner function to global variable
+
+  ```js
+  var fn;
+
+  function foo() {
+    var a = "Closure";
+
+    function closed() {
+      console.log( a );
+    }
+
+    fn = closed;
+  }
+
+  foo();
+
+  fn(); // Closure
+  ```
