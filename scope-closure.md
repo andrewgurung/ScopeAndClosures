@@ -88,3 +88,39 @@ wait( "Closure" );
 - Similar to "Passing inner function to global function"
 - `setTimeout()` is a library method with an implementation that takes two parameters: function(){..} and time
 - We pass the inner function `closed()` to `setTimeout()`, but `closed()` has scope reference over `wait()` which can access `message` identifier from the internal function parameter fn(){..} of `setTimeout()`
+
+### Loops and Closure
+
+```js
+for (var i=1; i<=5; i++) {
+  setTimeout( function timer(){
+  console.log( i );
+}, 0 );
+}
+/*
+Output: Instead of 1 2 3 4 5, it prints the following
+6
+6
+6
+6
+6
+*/
+```
+
+- Linters often complain when you put functions inside loops
+- The loop stops when the value of i = 6. So final value of printed `i` is 6
+- Even if the timeout is set to 0 millisecond, the timeout function callbacks will run well after the completion of the loop
+- Though these 5 functions are defined separately in each iteration, they are closed over the same shared global scope
+
+### Using IIFE to solve use of function in loops
+
+```js
+for (var i=1; i<=5; i++) {
+  (function (j) {
+      setTimeout( function timer(){
+      console.log( j );
+    }, 0 );
+  })(i);
+}
+```
+- Use of IIFE created a new scope for each iteration
