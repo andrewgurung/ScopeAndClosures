@@ -72,3 +72,19 @@ foo();
 
 bar(); // Closure
 ```
+
+### Closure around us
+
+```js
+function wait(message) {
+  setTimeout(function closed(){
+    console.log( message );
+  }, 1000);
+}
+
+wait( "Closure" );
+```
+
+- Similar to "Passing inner function to global function"
+- `setTimeout()` is a library method with an implementation that takes two parameters: function(){..} and time
+- We pass the inner function `closed()` to `setTimeout()`, but `closed()` has scope reference over `wait()` which can access `message` identifier from the internal function parameter fn(){..} of `setTimeout()`
