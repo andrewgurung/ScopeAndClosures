@@ -144,3 +144,33 @@ for (let i=1; i<=5; i++) {
 }, 0 );
 }
 ```
+
+### Modules: Leveraging the power of closure
+
+- There must be an outer enclosing function which must be invoked at least once (each call creates a new module instance)
+- The enclosing function must return at least one inner function (which has closure over the private scope and access/modify that private state)
+
+```js
+function CoolModule() {
+  var something = "Cool";
+  var another = [1, 2, 3];
+
+  function doSomething() {
+    console.log(something);
+  }
+
+  function doAnother() {
+    console.log(another.join("!"));
+  }
+
+  return {
+    doSomething: doSomething,
+    doAnother: doAnother
+  };
+}
+
+var cool = CoolModule();
+
+cool.doSomething(); // Cool
+cool.doAnother(); // 1!2!3
+```
