@@ -174,3 +174,51 @@ var cool = CoolModule();
 cool.doSomething(); // Cool
 cool.doAnother(); // 1!2!3
 ```
+
+### ES6 Modules
+- ES6 adds first class syntax for modules
+- Each module has to be defined in a separate file
+- `import` imports one or more members
+- export exports an identifier (variable, function)
+- module imports an entire module API to a bound variable
+- The browsers/engines have default "module loader" which synchronously loads modules
+
+Consider
+
+bar.js
+```js
+function hello(who) {
+  return "Hello, " + who;
+}
+
+export hello; // Export only hello()
+```
+
+foo.js
+```js
+// Import only hello() from "bar" module
+import hello from "bar";
+
+var hungry = "hippo";
+
+function awesome() {
+  console.log(
+      hello( hungry.toUpperCase() )
+  );
+}
+
+export foo;
+```
+
+baz.js
+```js
+// Import both "foo" and "bar" modules
+module bar from "bar";
+module bar from "foo";
+
+console.log(
+  bar.hello( "rhino" ); // Let me introduce: rhino
+);
+
+foo.awesome(); // LET ME INTRODUCE: HIPPO
+```
